@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Courier Tracker</title>
+  <title>Universal Courier Tracker</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f0f0f5;
       padding: 2rem;
       text-align: center;
     }
@@ -18,17 +18,21 @@
       display: inline-block;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    input, select, button {
+    select, input, button {
       margin: 10px;
       padding: 10px;
-      width: 250px;
+      width: 300px;
+      font-size: 16px;
     }
     button {
       background-color: #007bff;
       color: white;
       border: none;
-      cursor: pointer;
       border-radius: 5px;
+      cursor: pointer;
+    }
+    h1 {
+      color: #333;
     }
   </style>
 </head>
@@ -40,6 +44,26 @@
       <option value="https://www.ups.com/track?tracknum=">UPS</option>
       <option value="https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=">USPS</option>
       <option value="https://www.dhl.com/global-en/home/tracking.html?tracking-id=">DHL</option>
+      <option value="https://www.bluedart.com/tracking?trackno=">Blue Dart</option>
+      <option value="https://www.delhivery.com/tracking/?waybill=">Delhivery</option>
+      <option value="https://www.dtdc.in/tracking/tracking_results.asp?Ttype=awbno&strCnno=">DTDC</option>
+      <option value="https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/TrackConsignment.aspx?articlenumber=">India Post</option>
+      <option value="https://track.amazon.com/tracking?tracking_id=">Amazon Logistics</option>
+      <option value="https://ekartlogistics.com/shipmenttrack?tracking_id=">Ekart (Flipkart)</option>
+      <option value="https://www.aramex.com/track/shipments?ShipmentNumber=">Aramex</option>
+      <option value="https://ecomexpress.in/tracking/?awb_field=">Ecom Express</option>
+      <option value="https://www.shiprocket.in/shipment-tracking/?track=">Shiprocket</option>
+      <option value="https://track-chinapost.com/result_global.php?code=">China Post</option>
+      <option value="https://www.sf-international.com/us/en/dynamic_function/waybill/#search/bill-number/" class="long-url">SF Express</option>
+      <option value="https://www.canadapost-postescanada.ca/track-reperage/en#/search?searchFor=">Canada Post</option>
+      <option value="https://www.royalmail.com/track-your-item#/tracking-results/" class="long-url">Royal Mail</option>
+      <option value="https://auspost.com.au/mypost/track/#/details/">Australia Post</option>
+      <option value="https://www.internationalparceltracking.com/Main.aspx#/track/" class="long-url">PostNL</option>
+      <option value="https://www.jtexpress.my/track.php?tracking_no=">J&T Express</option>
+      <option value="https://www.ninjavan.co/en-my/tracking?id=">Ninja Van</option>
+      <option value="https://tracker.lel.asia/?tracking_id=">Lazada</option>
+      <option value="https://www.yodel.co.uk/track/" class="long-url">Yodel</option>
+      <option value="https://www.evri.com/track-a-parcel?trackingNumber=">Hermes / Evri</option>
     </select><br>
     <input type="text" id="trackingNumber" placeholder="Enter Tracking Number" required /><br>
     <button type="submit">Track</button>
@@ -50,7 +74,15 @@
       const courier = document.getElementById('courier').value;
       const trackingNumber = document.getElementById('trackingNumber').value.trim();
       if (trackingNumber) {
-        window.open(courier + trackingNumber, '_blank');
+        let fullUrl = courier;
+        if (!courier.endsWith('=') && !courier.includes('track/')) {
+          fullUrl += trackingNumber;
+        } else if (courier.includes('track/')) {
+          fullUrl = courier + trackingNumber;
+        } else {
+          fullUrl += trackingNumber;
+        }
+        window.open(fullUrl, '_blank');
       }
     }
   </script>
