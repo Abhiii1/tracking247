@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Universal Courier Tracker</title>
+  <title>Courier Tracker</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f5;
+      background-color: #f5f6fa;
       padding: 2rem;
       text-align: center;
     }
@@ -25,7 +25,7 @@
       font-size: 16px;
     }
     button {
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
@@ -39,7 +39,8 @@
 <body>
   <h1>Track Your Courier</h1>
   <form onsubmit="trackCourier(); return false;">
-    <select id="courier">
+    <select id="courier" required>
+      <option value="">Select Courier</option>
       <option value="https://www.fedex.com/fedextrack/?tracknumbers=">FedEx</option>
       <option value="https://www.ups.com/track?tracknum=">UPS</option>
       <option value="https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=">USPS</option>
@@ -54,17 +55,18 @@
       <option value="https://ecomexpress.in/tracking/?awb_field=">Ecom Express</option>
       <option value="https://www.shiprocket.in/shipment-tracking/?track=">Shiprocket</option>
       <option value="https://track-chinapost.com/result_global.php?code=">China Post</option>
-      <option value="https://www.sf-international.com/us/en/dynamic_function/waybill/#search/bill-number/" class="long-url">SF Express</option>
+      <option value="https://www.sf-international.com/us/en/dynamic_function/waybill/#search/bill-number/">SF Express</option>
       <option value="https://www.canadapost-postescanada.ca/track-reperage/en#/search?searchFor=">Canada Post</option>
-      <option value="https://www.royalmail.com/track-your-item#/tracking-results/" class="long-url">Royal Mail</option>
+      <option value="https://www.royalmail.com/track-your-item#/tracking-results/">Royal Mail</option>
       <option value="https://auspost.com.au/mypost/track/#/details/">Australia Post</option>
-      <option value="https://www.internationalparceltracking.com/Main.aspx#/track/" class="long-url">PostNL</option>
+      <option value="https://www.internationalparceltracking.com/Main.aspx#/track/">PostNL</option>
       <option value="https://www.jtexpress.my/track.php?tracking_no=">J&T Express</option>
       <option value="https://www.ninjavan.co/en-my/tracking?id=">Ninja Van</option>
       <option value="https://tracker.lel.asia/?tracking_id=">Lazada</option>
-      <option value="https://www.yodel.co.uk/track/" class="long-url">Yodel</option>
+      <option value="https://www.yodel.co.uk/track/">Yodel</option>
       <option value="https://www.evri.com/track-a-parcel?trackingNumber=">Hermes / Evri</option>
     </select><br>
+    
     <input type="text" id="trackingNumber" placeholder="Enter Tracking Number" required /><br>
     <button type="submit">Track</button>
   </form>
@@ -73,18 +75,14 @@
     function trackCourier() {
       const courier = document.getElementById('courier').value;
       const trackingNumber = document.getElementById('trackingNumber').value.trim();
-      if (trackingNumber) {
-        let fullUrl = courier;
-        if (!courier.endsWith('=') && !courier.includes('track/')) {
-          fullUrl += trackingNumber;
-        } else if (courier.includes('track/')) {
-          fullUrl = courier + trackingNumber;
-        } else {
-          fullUrl += trackingNumber;
-        }
-        window.open(fullUrl, '_blank');
+      if (courier && trackingNumber) {
+        const url = courier + encodeURIComponent(trackingNumber);
+        window.open(url, '_blank');
+      } else {
+        alert("Please select a courier and enter a tracking number.");
       }
     }
   </script>
 </body>
 </html>
+
