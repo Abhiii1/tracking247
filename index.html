@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courier Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      width: 250px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Track Your Courier</h1>
+  <form onsubmit="trackCourier(); return false;">
+    <select id="courier">
+      <option value="https://www.fedex.com/fedextrack/?tracknumbers=">FedEx</option>
+      <option value="https://www.ups.com/track?tracknum=">UPS</option>
+      <option value="https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=">USPS</option>
+      <option value="https://www.dhl.com/global-en/home/tracking.html?tracking-id=">DHL</option>
+    </select><br>
+    <input type="text" id="trackingNumber" placeholder="Enter Tracking Number" required /><br>
+    <button type="submit">Track</button>
+  </form>
+
+  <script>
+    function trackCourier() {
+      const courier = document.getElementById('courier').value;
+      const trackingNumber = document.getElementById('trackingNumber').value.trim();
+      if (trackingNumber) {
+        window.open(courier + trackingNumber, '_blank');
+      }
+    }
+  </script>
+</body>
+</html>
